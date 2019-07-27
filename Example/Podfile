@@ -1,0 +1,13 @@
+platform :ios, '10.0'
+
+use_frameworks!
+
+target 'ParseSDKExtensions_Example' do
+  pod 'ParseSDKExtensions', :path => '../'
+
+  target 'ParseSDKExtensions_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
