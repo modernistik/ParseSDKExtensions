@@ -212,10 +212,12 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 7FDELXHW5W;
 						LastSwiftMigration = 1030;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 7FDELXHW5W;
 						LastSwiftMigration = 1030;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -489,6 +491,7 @@
 			baseConfigurationReference = DC6C9907B59697A5FBFD94D9 /* Pods-ParseSDKExtensions_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7FDELXHW5W;
 				INFOPLIST_FILE = ParseSDKExtensions/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -503,6 +506,7 @@
 			baseConfigurationReference = 308996A23B1807E28BE9D71F /* Pods-ParseSDKExtensions_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7FDELXHW5W;
 				INFOPLIST_FILE = ParseSDKExtensions/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -516,6 +520,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 46B251E49566D64254569BC0 /* Pods-ParseSDKExtensions_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 7FDELXHW5W;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -537,6 +542,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E009D5E81945632232AF8B41 /* Pods-ParseSDKExtensions_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 7FDELXHW5W;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",
