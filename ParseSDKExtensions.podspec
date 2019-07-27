@@ -36,6 +36,6 @@ mobile applications with the Parse-SDK-iOS-OSX.
   s.dependency 'Parse', '>= 1.17.2'
   s.dependency 'TimeZoneLocate', '>= 0.4'
 
-  s.source_files = 'ParseSDKExtensions/Classes/**/*'
+  s.source_files = 'ParseSDKExtensions/**/*'
 
 end
