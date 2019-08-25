@@ -3,8 +3,8 @@
 //  Copyright © 2016 Modernistik LLC. All rights reserved.
 //
 
-import Parse
 import Modernistik
+import Parse
 
 /// Alias to block type `PFIdResultBlock` with signature `(result,error)`.
 public typealias FunctionResultBlock = PFIdResultBlock
@@ -49,7 +49,7 @@ public typealias GeoPoint = PFGeoPoint
 public typealias RemoteFile = PFFileObject
 
 /// Alias for `[String: Any]`
-public typealias Params  = [String:Any]
+public typealias Params = [String: Any]
 
 /**
  Protocol that defines an clean interface with interacting with Modernistik Hyperdrive server.
@@ -77,7 +77,6 @@ public typealias Params  = [String:Any]
     applicationId:"<app id>,
         clientKey:"<client id>")
 
-
  // optional: Set default public acls
  MyAppServer.setupDefaultPublicACL(
             read: true, write: false
@@ -87,7 +86,7 @@ public typealias Params  = [String:Any]
  MyAppServer.updateConfiguration()
  ````
  Those methods should be called early in the launch of your `UIApplicationDelegate`.
-*/
+ */
 public protocol Hyperdrive {
     /// An enum type for implementors of the Hyperdrive protocol that should list all cloud function names.
     /// It is highly recommended for this to be of type `String`.
@@ -115,38 +114,37 @@ public protocol Hyperdrive {
      - Parameter applicationId: The application id defined on the server.
      - Parameter clientKey: The client key defined on the server.
      */
-    static func setup(serverUrl:String, applicationId:String, clientKey:String)
+    static func setup(serverUrl: String, applicationId: String, clientKey: String)
 
     /// Method to fetch updated configuration (Parse Config) from the server. If successful, it
     /// will send a `HyperdriveConfigUpdatedNotification` notification.
     ///
     /// - Parameter completion: A completion handler when the fetch has been completed.
-    static func updateConfiguration(completion:ResultBlock?)
+    static func updateConfiguration(completion: ResultBlock?)
 }
 
 extension Hyperdrive where Function.RawValue == String {
-
     /**
-    A **synchronous** API to call a cloud function.
-     ## Example
+     A **synchronous** API to call a cloud function.
+      ## Example
 
-     ````
-     class MyAppServer : Hyperdrive {
-        enum Function: String {
-            case helloWorld
-        }
-     }
+      ````
+      class MyAppServer : Hyperdrive {
+         enum Function: String {
+             case helloWorld
+         }
+      }
 
-     let params = ["key":"value"]
+      let params = ["key":"value"]
 
-     MyAppServer.call(function: .helloWorld, with: params)
-     ````
+      MyAppServer.call(function: .helloWorld, with: params)
+      ````
 
-    - Parameter function: One of the `Function` enums defined in your Hyperdrive class.
-    - Parameter params: The parameters to send to the function.
-    - Returns: The result of the function.
-    - Throws: The server error that was returned.
-    */
+     - Parameter function: One of the `Function` enums defined in your Hyperdrive class.
+     - Parameter params: The parameters to send to the function.
+     - Returns: The result of the function.
+     - Throws: The server error that was returned.
+     */
     @discardableResult
     public static func call(function: Function, with params: Params? = nil) throws -> Any {
         return try PFCloud.callFunction(function.rawValue, withParameters: params)
@@ -180,12 +178,11 @@ extension Hyperdrive where Function.RawValue == String {
 }
 
 extension Hyperdrive {
-    
     /// Returns the config value based on the key.
     ///
     /// - Parameter key: The name of the configuration key.
     /// - Returns: The value for this key if any.
-    public static func config(_ key:String) -> Any? {
+    public static func config(_ key: String) -> Any? {
         return PFConfig.current().object(forKey: key)
     }
 
@@ -193,7 +190,7 @@ extension Hyperdrive {
     /// will send a `HyperdriveConfigUpdatedNotification` notification.
     ///
     /// - Parameter completion: A completion handler when the fetch has been completed.
-    public static func updateConfiguration(completion:ResultBlock? = nil) {
+    public static func updateConfiguration(completion: ResultBlock? = nil) {
         PFConfig.getInBackground { (config, error) -> Void in
             completion?(error)
             guard error == nil else { return }
@@ -207,21 +204,19 @@ extension Hyperdrive {
     }
 
     /**
-    The method to call to initiate configuration and connection to the Hyperdrive server. It will also
-    automatically enable revocable sessions in background.
+     The method to call to initiate configuration and connection to the Hyperdrive server. It will also
+     automatically enable revocable sessions in background.
 
-    - Parameter serverUrl: The server url of the Hyperdrive server. (ex. http://localhost:1337/parse)
-    - Parameter applicationId: The application id defined on the server.
-    - Parameter clientKey: The client key defined on the server.
-    */
-    public static func setup(serverUrl:String, applicationId:String, clientKey:String) {
-
+     - Parameter serverUrl: The server url of the Hyperdrive server. (ex. http://localhost:1337/parse)
+     - Parameter applicationId: The application id defined on the server.
+     - Parameter clientKey: The client key defined on the server.
+     */
+    public static func setup(serverUrl: String, applicationId: String, clientKey: String) {
         let configuration = ParseClientConfiguration {
             $0.server = serverUrl
             $0.applicationId = applicationId
             $0.clientKey = clientKey
             PFUser.enableRevocableSessionInBackground()
-
         }
         Parse.initialize(with: configuration)
     }
@@ -237,7 +232,7 @@ extension Hyperdrive {
      logged in user at the time of creation. If `false`, the provided
      `acl` will be used without modification.
      */
-    public static func setupDefaultPublicACL(read:Bool, write:Bool, withAccessForCurrentUser currentUserAccess:Bool = true) {
+    public static func setupDefaultPublicACL(read: Bool, write: Bool, withAccessForCurrentUser currentUserAccess: Bool = true) {
         let defaultACL = PFACL()
         defaultACL.hasPublicReadAccess = read
         defaultACL.hasPublicWriteAccess = write
@@ -263,11 +258,9 @@ extension Hyperdrive {
     public static func callInBackground(function: String, with params: Params? = nil, block: FunctionResultBlock?) {
         PFCloud.callFunction(inBackground: function, withParameters: params, block: block)
     }
-
 }
 
 extension Notification.Name {
-
     /// Notification sent when the global config has been updated from the server. You can update the configuration data
     /// by calling `Config.updateConfiguration` method.
     public static let HyperdriveConfigUpdatedNotification = Notification.Name(rawValue: "HyperdriveConfigUpdatedNotification")
@@ -277,7 +270,6 @@ extension Notification.Name {
      is invalid or has been revoked.
      - attention: When this is received, the application should immediately logout the user as they will not be ble to access
      any non-public readable data from the server.
-    */
+     */
     public static let HyperdriveSessionErrorNotification = Notification.Name(rawValue: "HyperdriveSessionErrorNotification")
 }
-
